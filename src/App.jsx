@@ -1,156 +1,313 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Button } from '@/components/ui/button.jsx'
 import { Card, CardContent } from '@/components/ui/card.jsx'
-import { CheckCircle2, Wallet, CreditCard, Smartphone, QrCode, TrendingUp, Gift, ArrowRight, Sparkles, Shield, Zap } from 'lucide-react'
+import { CheckCircle2, ArrowRight, Gift, Smartphone, Zap, TrendingUp, Shield } from 'lucide-react'
 import './App.css'
+import pointSmart2 from './assets/point-smart-2.webp'
+import pointPro3 from './assets/point-pro-3.webp'
+import pointAir2 from './assets/point-air-2.jpg'
+import pointMiniNfc from './assets/point-mini-nfc.jpg'
+import pointTap from './assets/point-tap.webp'
 
 function App() {
-  const [isVisible, setIsVisible] = useState(false)
+  const products = [
+    {
+      name: "Point Pro 3",
+      image: pointPro3,
+      description: "Aceite vouchers e imprima comprovantes.",
+      features: [
+        "Imprime comprovantes",
+        "Aceita vouchers",
+        "Conexão 4G e Wi-Fi",
+        "Bateria de longa duração"
+      ],
+      price: "12x R$ 11,65",
+      priceVista: "R$ 139,90",
+      discount: "80% OFF",
+      link: "https://mpago.li/33shz27",
+      badge: "MAIS COMPLETA",
+      cashback: "100% de cashback na Black Friday"
+    },
+    {
+      name: "Point Smart 2",
+      image: pointSmart2,
+      description: "A solução mais potente para impulsionar suas vendas.",
+      features: [
+        "Tela touchscreen grande",
+        "Sistema Android",
+        "Aceita múltiplas formas de pagamento",
+        "Gestão completa de vendas"
+      ],
+      price: "12x R$ 19,15",
+      priceVista: "R$ 229,90",
+      discount: "72% OFF",
+      link: "https://mpago.li/1DJq3bh",
+      badge: "MAIS POTENTE",
+      cashback: "100% de cashback na Black Friday"
+    },
+    {
+      name: "Point Air 2",
+      image: pointAir2,
+      description: "Leve no seu bolso e venda sem celular.",
+      features: [
+        "Compacta e portátil",
+        "Conexão 4G integrada",
+        "Pagamento por aproximação (NFC)",
+        "Bateria de longa duração"
+      ],
+      price: "12x R$ 7,49",
+      priceVista: "R$ 89,90",
+      discount: "74% OFF",
+      link: "https://mpago.li/1Yoa8u6",
+      badge: "MAIS PORTÁTIL"
+    },
+    {
+      name: "Point Mini NFC 2",
+      image: pointMiniNfc,
+      description: "Aceite também pagamentos por aproximação.",
+      features: [
+        "Super compacta",
+        "Pagamento por aproximação (NFC)",
+        "Conecta via Bluetooth ao celular",
+        "Preço acessível"
+      ],
+      price: "12x R$ 2,49",
+      priceVista: "R$ 29,90",
+      discount: "74% OFF",
+      link: "https://mpago.li/2QWH8HC",
+      badge: "MELHOR CUSTO"
+    },
+    {
+      name: "Point",
+      image: pointMiniNfc,
+      description: "A maquininha clássica do Mercado Pago.",
+      features: [
+        "Compacta e fácil de usar",
+        "Conecta via Bluetooth",
+        "Aceita todas as bandeiras",
+        "Ideal para começar"
+      ],
+      price: "Consulte condições",
+      priceVista: "",
+      discount: "",
+      link: "https://mpago.li/2cCndkW",
+      badge: "CLÁSSICA"
+    },
+    {
+      name: "Point Tap",
+      image: pointTap,
+      description: "Transforme seu celular em maquininha.",
+      features: [
+        "Sem custo de equipamento",
+        "Use seu próprio celular",
+        "Aceita pagamento por aproximação",
+        "Disponível para Android e iOS"
+      ],
+      price: "GRÁTIS",
+      priceVista: "Taxas a partir de 0,89%",
+      discount: "20% OFF nas taxas",
+      link: "https://mpago.li/33XzpyM",
+      badge: "GRÁTIS"
+    }
+  ]
 
-  useEffect(() => {
-    setIsVisible(true)
-  }, [])
-
-  // IMPORTANTE: Substitua este link pelo seu link de indicação do Mercado Pago
-  const referralLink = "https://mpago.li/1DJq3bh"
-
-  const handleCTAClick = () => {
-    window.open(referralLink, '_blank')
+  const handleProductClick = (link) => {
+    window.open(link, '_blank')
   }
 
-  const benefits = [
-    {
-      icon: <Wallet className="w-8 h-8 text-blue-400" />,
-      title: "Conta Digital Gratuita",
-      description: "Sem taxa de manutenção, sem pegadinhas. Use seu dinheiro como quiser."
-    },
-    {
-      icon: <TrendingUp className="w-8 h-8 text-green-400" />,
-      title: "Rendimento Automático",
-      description: "Seu saldo rende 100% do CDI automaticamente, mais que a poupança tradicional."
-    },
-    {
-      icon: <CreditCard className="w-8 h-8 text-purple-400" />,
-      title: "Cartão sem Anuidade",
-      description: "Cartão de crédito e débito sem anuidade, sujeito à análise de crédito."
-    },
-    {
-      icon: <Smartphone className="w-8 h-8 text-pink-400" />,
-      title: "Pagamentos e Recargas",
-      description: "Pague contas, boletos e faça recargas de celular direto pelo app."
-    },
-    {
-      icon: <QrCode className="w-8 h-8 text-yellow-400" />,
-      title: "Pagamento com QR Code",
-      description: "Pague com QR Code em milhares de lojas físicas e online."
-    },
-    {
-      icon: <Shield className="w-8 h-8 text-cyan-400" />,
-      title: "Segurança Garantida",
-      description: "Tecnologia de ponta para proteger seu dinheiro e seus dados."
-    }
-  ]
-
-  const steps = [
-    {
-      number: "1",
-      title: "Clique no Botão",
-      description: "Clique em 'Quero Meu Desconto' e baixe o app do Mercado Pago."
-    },
-    {
-      number: "2",
-      title: "Crie sua Conta",
-      description: "Cadastre-se gratuitamente e valide seus documentos no app."
-    },
-    {
-      number: "3",
-      title: "Ganhe R$ 20",
-      description: "Faça sua primeira transação e receba seu desconto de R$ 20!"
-    }
-  ]
-
   return (
-    <div className="dark min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden">
-        {/* Animated background elements */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        </div>
-
-        <div className="relative container mx-auto px-4 py-16 md:py-24">
-          <div className={`text-center max-w-4xl mx-auto transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-blue-500/30 rounded-full px-4 py-2 mb-6">
-              <Gift className="w-4 h-4 text-blue-400" />
-              <span className="text-sm font-medium text-blue-300">Oferta Exclusiva por Tempo Limitado</span>
+    <div className="min-h-screen bg-white">
+      {/* Header - Estilo Mercado Pago */}
+      <header className="bg-[#009EE3] sticky top-0 z-50 shadow-md">
+        <div className="container mx-auto px-4 py-3">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <div className="bg-white rounded-lg px-3 py-2">
+                <span className="text-[#009EE3] font-bold text-xl">mercado pago</span>
+              </div>
             </div>
+            <div className="hidden md:flex items-center gap-4">
+              <span className="text-white font-medium">Maquininhas e Conta Digital</span>
+            </div>
+          </div>
+        </div>
+      </header>
 
-            {/* Main Headline */}
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent leading-tight">
-              Ganhe R$ 20 de Desconto no Mercado Pago
+      {/* Hero Section - Fundo Amarelo estilo Mercado Pago */}
+      <section className="bg-[#FFE600] py-12 md:py-20">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            <div className="inline-flex items-center gap-2 bg-black text-white rounded-full px-4 py-2 mb-6 font-semibold">
+              <Gift className="w-5 h-5" />
+              BLACK FRIDAY COM 100% DE CASHBACK
+            </div>
+            
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 text-black">
+              Maquininhas Point com até 80% OFF
             </h1>
-
-            {/* Subheadline */}
-            <p className="text-xl md:text-2xl text-slate-300 mb-8 leading-relaxed">
-              Abra sua conta digital <span className="text-green-400 font-semibold">100% gratuita</span> através do meu convite especial e comece com <span className="text-blue-400 font-semibold">R$ 20 de bônus</span> para usar como quiser!
+            
+            <p className="text-xl md:text-2xl mb-8 text-gray-800">
+              Aceite pagamentos com cartão, Pix e muito mais. Taxas a partir de <span className="font-bold">0,74%</span> e dinheiro na hora na sua conta!
             </p>
 
-            {/* CTA Button */}
-            <Button 
-              onClick={handleCTAClick}
-              size="lg"
-              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-lg px-8 py-6 rounded-full shadow-2xl shadow-blue-500/50 hover:shadow-blue-500/70 transition-all duration-300 hover:scale-105 group"
-            >
-              <Sparkles className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" />
-              Quero Meu Desconto de R$ 20!
-              <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-            </Button>
-
-            {/* Trust indicators */}
-            <div className="mt-8 flex flex-wrap justify-center items-center gap-6 text-sm text-slate-400">
+            <div className="flex flex-wrap justify-center gap-4 text-sm text-gray-800 mb-8">
               <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-5 h-5 text-green-400" />
-                <span>Sem taxas escondidas</span>
+                <CheckCircle2 className="w-5 h-5 text-green-600" />
+                <span className="font-medium">Dinheiro cai em segundos</span>
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-5 h-5 text-green-400" />
-                <span>Cadastro em 5 minutos</span>
+                <CheckCircle2 className="w-5 h-5 text-green-600" />
+                <span className="font-medium">Sem mensalidade</span>
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-5 h-5 text-green-400" />
-                <span>Mais de 80 milhões de usuários</span>
+                <CheckCircle2 className="w-5 h-5 text-green-600" />
+                <span className="font-medium">Aceita todas as bandeiras</span>
               </div>
             </div>
+
+            <Button 
+              onClick={() => window.scrollTo({ top: 800, behavior: 'smooth' })}
+              size="lg"
+              className="bg-[#009EE3] hover:bg-[#0086c3] text-white font-bold text-xl px-10 py-7 rounded-lg shadow-xl hover:shadow-2xl transition-all"
+            >
+              Ver Maquininhas
+              <ArrowRight className="w-6 h-6 ml-2" />
+            </Button>
           </div>
         </div>
       </section>
 
-      {/* Benefits Section */}
-      <section className="py-16 md:py-24 bg-slate-900/50">
+      {/* Benefícios Section */}
+      <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-5xl font-bold mb-4 text-white">
+            <h2 className="text-3xl md:text-5xl font-bold mb-4 text-gray-900">
               Por que escolher o Mercado Pago?
             </h2>
-            <p className="text-lg text-slate-400 max-w-2xl mx-auto">
-              A conta digital completa que facilita sua vida financeira e ainda faz seu dinheiro render mais.
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              A solução completa para você vender mais e receber seus pagamentos com segurança.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            {benefits.map((benefit, index) => (
+          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <Card className="border-2 border-gray-200 hover:border-[#009EE3] transition-all">
+              <CardContent className="p-6 text-center">
+                <div className="bg-[#FFE600] rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                  <Zap className="w-8 h-8 text-gray-900" />
+                </div>
+                <h3 className="text-xl font-bold mb-2 text-gray-900">Dinheiro na Hora</h3>
+                <p className="text-gray-600">
+                  Receba o dinheiro das suas vendas em segundos na sua conta Mercado Pago.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-2 border-gray-200 hover:border-[#009EE3] transition-all">
+              <CardContent className="p-6 text-center">
+                <div className="bg-[#FFE600] rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                  <TrendingUp className="w-8 h-8 text-gray-900" />
+                </div>
+                <h3 className="text-xl font-bold mb-2 text-gray-900">Taxas Competitivas</h3>
+                <p className="text-gray-600">
+                  Taxas a partir de 0,74% no débito. Quanto mais você vende, menos você paga.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-2 border-gray-200 hover:border-[#009EE3] transition-all">
+              <CardContent className="p-6 text-center">
+                <div className="bg-[#FFE600] rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                  <Shield className="w-8 h-8 text-gray-900" />
+                </div>
+                <h3 className="text-xl font-bold mb-2 text-gray-900">Segurança Total</h3>
+                <p className="text-gray-600">
+                  Tecnologia de ponta para proteger suas vendas e os dados dos seus clientes.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Maquininhas Point Section */}
+      <section className="py-16 bg-gradient-to-b from-white to-gray-50">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-5xl font-bold mb-4 text-gray-900">
+              Escolha a maquininha ideal para você
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Descontos de até 80% e 100% de cashback na Black Friday. Aproveite!
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
+            {products.map((product, index) => (
               <Card 
                 key={index}
-                className="bg-slate-800/50 border-slate-700 hover:border-blue-500/50 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-blue-500/20 group"
+                className="border-2 border-gray-200 hover:border-[#009EE3] transition-all duration-300 hover:shadow-xl group overflow-hidden"
               >
-                <CardContent className="p-6">
-                  <div className="mb-4 transform group-hover:scale-110 transition-transform duration-300">
-                    {benefit.icon}
+                <CardContent className="p-0">
+                  {/* Badge */}
+                  {product.badge && (
+                    <div className="bg-[#009EE3] text-white text-xs font-bold px-3 py-1 text-center">
+                      {product.badge}
+                    </div>
+                  )}
+
+                  {/* Imagem */}
+                  <div className="bg-gradient-to-br from-[#FFE600] to-[#ffd700] p-6 flex items-center justify-center h-64">
+                    <img 
+                      src={product.image} 
+                      alt={product.name}
+                      className="max-h-full max-w-full object-contain group-hover:scale-110 transition-transform duration-300"
+                    />
                   </div>
-                  <h3 className="text-xl font-bold mb-2 text-white">{benefit.title}</h3>
-                  <p className="text-slate-400">{benefit.description}</p>
+
+                  <div className="p-6">
+                    {/* Nome e Descrição */}
+                    <h3 className="text-2xl font-bold mb-2 text-gray-900">{product.name}</h3>
+                    <p className="text-gray-600 mb-4 text-sm">{product.description}</p>
+
+                    {/* Cashback Badge */}
+                    {product.cashback && (
+                      <div className="bg-red-50 border border-red-200 rounded-lg p-2 mb-4">
+                        <p className="text-xs font-bold text-red-600 text-center">{product.cashback}</p>
+                      </div>
+                    )}
+
+                    {/* Features */}
+                    <div className="space-y-2 mb-6">
+                      {product.features.map((feature, idx) => (
+                        <div key={idx} className="flex items-start gap-2">
+                          <CheckCircle2 className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
+                          <span className="text-sm text-gray-700">{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Preço */}
+                    <div className="mb-4">
+                      {product.discount && (
+                        <div className="inline-block bg-red-500 text-white text-xs font-bold px-2 py-1 rounded mb-2">
+                          {product.discount}
+                        </div>
+                      )}
+                      <div className="text-2xl font-bold text-gray-900">{product.price}</div>
+                      {product.priceVista && (
+                        <div className="text-sm text-gray-600">ou à vista {product.priceVista}</div>
+                      )}
+                    </div>
+
+                    {/* Botão */}
+                    <Button 
+                      onClick={() => handleProductClick(product.link)}
+                      className="w-full bg-[#009EE3] hover:bg-[#0086c3] text-white font-bold py-3 rounded-lg transition-all group/btn"
+                    >
+                      Comprar Agora
+                      <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
+                    </Button>
+                  </div>
                 </CardContent>
               </Card>
             ))}
@@ -158,96 +315,148 @@ function App() {
         </div>
       </section>
 
-      {/* How it Works Section */}
-      <section className="py-16 md:py-24">
+      {/* App Mercado Pago Section */}
+      <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-5xl font-bold mb-4 text-white">
-              Como funciona? É simples!
+            <h2 className="text-3xl md:text-5xl font-bold mb-4 text-gray-900">
+              Ainda não tem conta no Mercado Pago?
             </h2>
-            <p className="text-lg text-slate-400 max-w-2xl mx-auto">
-              Em apenas 3 passos você garante sua conta gratuita e seu bônus de R$ 20.
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              Abra sua conta digital gratuita e ganhe <span className="font-bold text-[#009EE3]">R$ 20 de desconto</span> na primeira transação!
             </p>
           </div>
 
-          <div className="max-w-4xl mx-auto">
-            <div className="grid md:grid-cols-3 gap-8">
-              {steps.map((step, index) => (
-                <div key={index} className="relative">
-                  {/* Connector line */}
-                  {index < steps.length - 1 && (
-                    <div className="hidden md:block absolute top-12 left-1/2 w-full h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 opacity-30"></div>
-                  )}
-                  
-                  <div className="relative bg-slate-800/50 border border-slate-700 rounded-2xl p-6 hover:border-blue-500/50 transition-all duration-300 hover:scale-105">
-                    <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-12 h-12 bg-gradient-to-br from-blue-600 to-purple-600 rounded-full flex items-center justify-center text-2xl font-bold text-white shadow-lg">
-                      {step.number}
-                    </div>
-                    <div className="mt-6 text-center">
-                      <h3 className="text-xl font-bold mb-2 text-white">{step.title}</h3>
-                      <p className="text-slate-400">{step.description}</p>
-                    </div>
+          <div className="max-w-3xl mx-auto">
+            <Card className="border-2 border-[#009EE3] shadow-xl hover:shadow-2xl transition-shadow">
+              <CardContent className="p-8">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="bg-[#009EE3] rounded-full p-4">
+                    <Smartphone className="w-8 h-8 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-gray-900">App Mercado Pago</h3>
+                    <p className="text-gray-600">Conta digital completa e gratuita</p>
                   </div>
                 </div>
-              ))}
-            </div>
-          </div>
 
-          {/* CTA Button */}
-          <div className="text-center mt-12">
-            <Button 
-              onClick={handleCTAClick}
-              size="lg"
-              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-lg px-8 py-6 rounded-full shadow-2xl shadow-purple-500/50 hover:shadow-purple-500/70 transition-all duration-300 hover:scale-105 group"
-            >
-              <Zap className="w-5 h-5 mr-2 group-hover:animate-pulse" />
-              Começar Agora
-              <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-            </Button>
+                <div className="grid md:grid-cols-2 gap-4 mb-6">
+                  <div className="flex items-start gap-2">
+                    <CheckCircle2 className="w-5 h-5 text-green-600 mt-1 flex-shrink-0" />
+                    <span className="text-gray-700">Rendimento automático a 100% do CDI</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <CheckCircle2 className="w-5 h-5 text-green-600 mt-1 flex-shrink-0" />
+                    <span className="text-gray-700">Cartão de crédito sem anuidade</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <CheckCircle2 className="w-5 h-5 text-green-600 mt-1 flex-shrink-0" />
+                    <span className="text-gray-700">Pagamentos e transferências grátis</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <CheckCircle2 className="w-5 h-5 text-green-600 mt-1 flex-shrink-0" />
+                    <span className="text-gray-700">Pix, boletos e recargas</span>
+                  </div>
+                </div>
+
+                <div className="bg-[#FFE600] rounded-lg p-4 mb-6">
+                  <p className="text-center font-bold text-gray-900">
+                    🎁 Ganhe <span className="text-2xl text-[#009EE3]">R$ 20 de desconto</span> na primeira transação
+                  </p>
+                </div>
+
+                <Button 
+                  onClick={() => handleProductClick("https://mpago.li/1DJq3bh")}
+                  className="w-full bg-[#009EE3] hover:bg-[#0086c3] text-white font-bold text-lg py-6 rounded-lg shadow-lg hover:shadow-xl transition-all group"
+                >
+                  Abrir Conta Grátis
+                  <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
 
-      {/* Final CTA Section */}
-      <section className="py-16 md:py-24 bg-gradient-to-r from-blue-900/30 to-purple-900/30 border-y border-blue-500/20">
-        <div className="container mx-auto px-4 text-center">
-          <div className="max-w-3xl mx-auto">
-            <h2 className="text-3xl md:text-5xl font-bold mb-6 text-white">
-              Pronto para transformar sua vida financeira?
+      {/* Link de Pagamento Section */}
+      <section className="py-16 bg-gradient-to-br from-[#009EE3] to-[#0086c3]">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
+              Venda pela internet com Link de Pagamento
             </h2>
-            <p className="text-xl text-slate-300 mb-8">
-              Junte-se a mais de 80 milhões de brasileiros que já confiam no Mercado Pago. Abra sua conta agora e ganhe R$ 20 de bônus!
+            <p className="text-lg text-white/90 mb-8">
+              Crie links de pagamento personalizados e receba por Pix, cartão, boleto e muito mais!
             </p>
+            
+            <Card className="border-0 shadow-2xl">
+              <CardContent className="p-8">
+                <div className="mb-6">
+                  <div className="flex items-start gap-2 mb-3">
+                    <CheckCircle2 className="w-5 h-5 text-green-600 mt-1" />
+                    <span className="text-gray-700">Crie links de pagamento em segundos</span>
+                  </div>
+                  <div className="flex items-start gap-2 mb-3">
+                    <CheckCircle2 className="w-5 h-5 text-green-600 mt-1" />
+                    <span className="text-gray-700">Aceite Pix, cartão, boleto e mais</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <CheckCircle2 className="w-5 h-5 text-green-600 mt-1" />
+                    <span className="text-gray-700">Compartilhe por WhatsApp, email ou redes sociais</span>
+                  </div>
+                </div>
+
+                <Button 
+                  onClick={() => handleProductClick("https://mpago.la/1JETUvs")}
+                  className="w-full bg-[#009EE3] hover:bg-[#0086c3] text-white font-bold text-lg py-6 rounded-lg shadow-lg hover:shadow-xl transition-all group"
+                >
+                  Começar a Usar
+                  <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Final */}
+      <section className="py-16 bg-[#FFE600]">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl md:text-5xl font-bold mb-6 text-gray-900">
+            Comece a vender hoje mesmo!
+          </h2>
+          <p className="text-xl text-gray-800 mb-8 max-w-2xl mx-auto">
+            Escolha sua maquininha Point ou abra sua conta digital gratuita e transforme a forma como você recebe pagamentos.
+          </p>
+          <div className="flex flex-wrap justify-center gap-4">
             <Button 
-              onClick={handleCTAClick}
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
               size="lg"
-              className="bg-white hover:bg-slate-100 text-slate-900 font-bold text-lg px-8 py-6 rounded-full shadow-2xl hover:shadow-white/30 transition-all duration-300 hover:scale-105 group"
+              className="bg-[#009EE3] hover:bg-[#0086c3] text-white font-bold text-lg px-8 py-6 rounded-lg shadow-xl hover:shadow-2xl transition-all"
             >
-              <Gift className="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" />
-              Resgatar Meu Bônus Agora
-              <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+              Ver Todas as Opções
             </Button>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="py-8 bg-slate-950 border-t border-slate-800">
-        <div className="container mx-auto px-4 text-center text-slate-500 text-sm">
-          <p className="mb-2">
-            Esta é uma página de divulgação independente do programa "Convide e Ganhe" do Mercado Pago.
+      <footer className="py-8 bg-gray-900 text-white">
+        <div className="container mx-auto px-4 text-center">
+          <p className="mb-2 text-gray-300">
+            Esta é uma página de divulgação dos produtos e serviços do Mercado Pago.
           </p>
-          <p>
-            O valor do bônus e as condições podem variar. Consulte os{' '}
+          <p className="text-gray-400 text-sm">
+            Os valores, taxas e condições podem variar. Consulte o{' '}
             <a 
-              href="https://www.mercadopago.com.br/ajuda/2895" 
+              href="https://www.mercadopago.com.br" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="text-blue-400 hover:text-blue-300 underline"
+              className="text-[#009EE3] hover:text-[#00b8ff] underline"
             >
-              Termos e Condições oficiais
+              site oficial do Mercado Pago
             </a>
-            {' '}do Mercado Pago.
+            {' '}para mais informações.
           </p>
         </div>
       </footer>
